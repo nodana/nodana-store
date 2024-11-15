@@ -27,5 +27,8 @@
   },
   "eslintConfig": {
     "extends": "preact"
+  },
+  "optionalDependencies": {
+    "@rollup/rollup-linux-x64-gnu": "^4.26.0"
   }
 }
