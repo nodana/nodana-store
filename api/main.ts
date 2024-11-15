@@ -1,8 +1,8 @@
 import "jsr:@std/dotenv/load";
-import { Buffer } from "node:buffer";
+// import { Buffer } from "node:buffer";
 import { Application, Router } from "@oak/oak";
 import { oakCors } from "@tajpouria/cors";
-// import routeStaticFilesFrom from "./util/routeStaticFilesFrom.ts";
+import { routeStaticFilesFrom } from "./middleware/index.ts";
 
 const NODE_URL = Deno.env.get("NODE_URL") as string;
 const NODE_PASSWORD = Deno.env.get("NODE_PASSWORD") as string;
@@ -47,32 +47,32 @@ router.get("/websocket", (ctx) => {
   ws.onclose = () => console.log("Disconncted from client");
 });
 
-// router.get("/api/test", (ctx) => {
-//   ctx.response.type = "application/json";
-//   ctx.response.body = {
-//     error: false,
-//     message: "This is the response",
-//   };
-// });
+router.get("/api/test", (ctx) => {
+  ctx.response.type = "application/json";
+  ctx.response.body = {
+    error: false,
+    message: "This is the response",
+  };
+});
 
-(async () => {
-  const result = await fetch(`${NODE_URL}/payments/incoming`, {
-    method: "GET",
-    headers: {
-      Authorization:
-        "Basic " + Buffer.from(":" + NODE_PASSWORD).toString("base64"),
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
-  });
+// (async () => {
+//   const result = await fetch(`${NODE_URL}/payments/incoming`, {
+//     method: "GET",
+//     headers: {
+//       Authorization:
+//         "Basic " + Buffer.from(":" + NODE_PASSWORD).toString("base64"),
+//       "Content-Type": "application/x-www-form-urlencoded",
+//     },
+//   });
 
-  const json = await result.json();
-  console.log(json);
-})();
+//   const json = await result.json();
+//   console.log(json);
+// })();
 
 const app = new Application();
 app.use(oakCors());
 app.use(router.routes());
 app.use(router.allowedMethods());
-// app.use(routeStaticFilesFrom([`${Deno.cwd()}/dist`, `${Deno.cwd()}/public`]));
+app.use(routeStaticFilesFrom([`${Deno.cwd()}/dist`, `${Deno.cwd()}/public`]));
 
 await app.listen({ port: 8000 });

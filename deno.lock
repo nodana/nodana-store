@@ -2,6 +2,7 @@
   "version": "4",
   "specifiers": {
     "jsr:@oak/commons@1": "1.0.0",
+    "jsr:@oak/oak@*": "17.1.3",
     "jsr:@oak/oak@17": "17.1.3",
     "jsr:@std/assert@1": "1.0.8",
     "jsr:@std/bytes@1": "1.0.4",
