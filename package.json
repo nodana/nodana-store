@@ -1,0 +1,31 @@
+{
+  "name": "nodana-pay",
+  "private": false,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "deno task dev:api & deno task dev:vite",
+    "dev:api": "deno run --allow-env --env-file --allow-read --allow-net api/main.ts",
+    "dev:vite": "deno run -A npm:vite",
+    "build": "tsc -b && vite build",
+    "serve": "deno task build && deno task dev:api",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "preact": "^10.20.0",
+    "preact-iso": "^2.8.1",
+    "react": "npm:@preact/compat",
+    "react-dom": "npm:@preact/compat"
+  },
+  "devDependencies": {
+    "@preact/preset-vite": "^2.8.2",
+    "eslint": "^8.57.1",
+    "eslint-config-preact": "^1.5.0",
+    "typescript": "^5.6.3",
+    "vite": "^5.2.2"
+  },
+  "eslintConfig": {
+    "extends": "preact"
+  }
+}
